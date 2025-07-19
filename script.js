@@ -1195,6 +1195,35 @@ function shuffleQuestions() {
     }
 }
 
+// Shuffle options for a question
+function shuffleOptions(question) {
+    const options = { ...question.options };
+    const optionKeys = Object.keys(options);
+    const shuffledKeys = [...optionKeys];
+    
+    // Fisher-Yates shuffle for option keys
+    for (let i = shuffledKeys.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledKeys[i], shuffledKeys[j]] = [shuffledKeys[j], shuffledKeys[i]];
+    }
+    
+    // Create new options object with shuffled order
+    const shuffledOptions = {};
+    shuffledKeys.forEach(key => {
+        shuffledOptions[key] = options[key];
+    });
+    
+    // Find the new correct answer key
+    const originalCorrect = question.correct;
+    const newCorrectKey = shuffledKeys.find(key => options[key] === options[originalCorrect]);
+    
+    return {
+        ...question,
+        options: shuffledOptions,
+        correct: newCorrectKey
+    };
+}
+
 // Start the quiz
 function startQuiz() {
     showLoading(true);
@@ -1207,8 +1236,11 @@ function startQuiz() {
     timeRemaining = timeLimit;
     quizStarted = true;
     
-    // Shuffle questions
+    // Shuffle questions and options
     shuffleQuestions();
+    
+    // Shuffle options for each question
+    shuffledQuestions = shuffledQuestions.map(question => shuffleOptions(question));
     
     setTimeout(() => {
         showLoading(false);
@@ -1262,11 +1294,18 @@ function loadQuestion() {
     // Update question text
     questionText.textContent = question.question;
     
-    // Update options
-    optionA.textContent = question.options.A;
-    optionB.textContent = question.options.B;
-    optionC.textContent = question.options.C;
-    optionD.textContent = question.options.D;
+    // Update options with shuffled order
+    const optionKeys = Object.keys(question.options);
+    optionA.textContent = question.options[optionKeys[0]];
+    optionB.textContent = question.options[optionKeys[1]];
+    optionC.textContent = question.options[optionKeys[2]];
+    optionD.textContent = question.options[optionKeys[3]];
+    
+    // Update data-option attributes to match shuffled keys
+    document.querySelector('[data-option="A"]').setAttribute('data-option', optionKeys[0]);
+    document.querySelector('[data-option="B"]').setAttribute('data-option', optionKeys[1]);
+    document.querySelector('[data-option="C"]').setAttribute('data-option', optionKeys[2]);
+    document.querySelector('[data-option="D"]').setAttribute('data-option', optionKeys[3]);
     
     // Update progress
     currentQuestionDisplay.textContent = currentQuestionIndex + 1;
@@ -1507,26 +1546,29 @@ function restartQuiz() {
 // Add keyboard navigation
 document.addEventListener('keydown', (event) => {
     if (quizScreen.classList.contains('active')) {
+        const currentQuestion = shuffledQuestions[currentQuestionIndex];
+        const optionKeys = Object.keys(currentQuestion.options);
+        
         switch(event.key) {
             case '1':
             case 'a':
             case 'A':
-                document.querySelector('[data-option="A"]').click();
+                document.querySelector(`[data-option="${optionKeys[0]}"]`).click();
                 break;
             case '2':
             case 'b':
             case 'B':
-                document.querySelector('[data-option="B"]').click();
+                document.querySelector(`[data-option="${optionKeys[1]}"]`).click();
                 break;
             case '3':
             case 'c':
             case 'C':
-                document.querySelector('[data-option="C"]').click();
+                document.querySelector(`[data-option="${optionKeys[2]}"]`).click();
                 break;
             case '4':
             case 'd':
             case 'D':
-                document.querySelector('[data-option="D"]').click();
+                document.querySelector(`[data-option="${optionKeys[3]}"]`).click();
                 break;
             case 'ArrowLeft':
                 if (!previousBtn.disabled) {
