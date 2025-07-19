@@ -1002,6 +1002,85 @@ let quizData = [
     }
 ];
 
+// Motivational messages array
+const motivationalMessages = [
+    "You're doing great! Keep going! 💪",
+    "Every question makes you stronger! 🧠",
+    "You've got this! Stay focused! ⚡",
+    "Your AI knowledge is growing! 🌟",
+    "Halfway there! You're amazing! 🎯",
+    "Almost there! Keep pushing! 🚀",
+    "You're on fire! 🔥",
+    "Brilliant work! Keep it up! ✨",
+    "You're mastering AI concepts! 🎓",
+    "Final stretch! You're incredible! 🏆"
+];
+
+const resultMessages = {
+    excellent: [
+        "Outstanding performance! You're an AI expert! 🏆",
+        "Perfect score! You're absolutely brilliant! 🌟",
+        "Incredible work! You've mastered AI theory! 🎓"
+    ],
+    good: [
+        "Great job! You have solid AI knowledge! 👍",
+        "Well done! You're on the right track! 🎯",
+        "Excellent work! Keep learning and growing! 📚"
+    ],
+    average: [
+        "Good effort! Every attempt makes you better! 💪",
+        "You're learning! That's what matters most! 📖",
+        "Keep practicing! You're getting stronger! 🔥"
+    ],
+    needsImprovement: [
+        "Don't give up! Learning is a journey! 🌱",
+        "Every mistake is a learning opportunity! 📝",
+        "You've taken the first step! Keep going! 🚀"
+    ]
+};
+
+// Update motivational message based on progress
+function updateMotivationalMessage() {
+    const progress = (currentQuestionIndex / quizData.length) * 100;
+    const messageIndex = Math.floor(progress / 10);
+    const motivationText = document.getElementById('motivation-text');
+    
+    if (motivationText && messageIndex < motivationalMessages.length) {
+        motivationText.textContent = motivationalMessages[messageIndex];
+        motivationText.style.animation = 'none';
+        motivationText.offsetHeight; // Trigger reflow
+        motivationText.style.animation = 'slideInUp 0.5s ease';
+    }
+}
+
+// Update result message based on score
+function updateResultMessage() {
+    const finalScore = parseInt(finalScoreDisplay.textContent);
+    const resultMessage = document.getElementById('result-message');
+    const resultEncouragement = document.getElementById('result-encouragement');
+    
+    let messages;
+    if (finalScore >= 90) {
+        messages = resultMessages.excellent;
+    } else if (finalScore >= 70) {
+        messages = resultMessages.good;
+    } else if (finalScore >= 50) {
+        messages = resultMessages.average;
+    } else {
+        messages = resultMessages.needsImprovement;
+    }
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    
+    if (resultMessage) {
+        resultMessage.textContent = randomMessage;
+    }
+    
+    if (resultEncouragement) {
+        resultEncouragement.textContent = "Your dedication to learning AI is inspiring!";
+    }
+}
+
 // Timer variables
 let timeLimit = 150 * 60; // 150 minutes (2.5 hours) in seconds
 let timeRemaining = timeLimit;
@@ -1194,6 +1273,9 @@ function loadQuestion() {
     const progressPercentage = ((currentQuestionIndex + 1) / quizData.length) * 100;
     progressFill.style.width = `${progressPercentage}%`;
     
+    // Update motivational message
+    updateMotivationalMessage();
+    
     // Update navigation buttons
     previousBtn.disabled = currentQuestionIndex === 0;
     nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
@@ -1350,6 +1432,9 @@ function calculateFinalScore() {
     correctAnswersDisplay.textContent = correctAnswers;
     totalAnsweredDisplay.textContent = totalAnswered;
     accuracyDisplay.textContent = accuracy;
+    
+    // Update result messages
+    updateResultMessage();
     
     // Animate score circle
     const scoreFill = document.querySelector('.score-fill');

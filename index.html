@@ -18,10 +18,18 @@
                     <h1>AI Theory Quiz</h1>
                 </div>
                 <p class="subtitle">Test your knowledge of Artificial Intelligence</p>
+                
+                <!-- Motivational Quote -->
+                <div class="motivational-quote">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The future belongs to those who believe in the beauty of their dreams."</p>
+                    <span class="quote-author">- Eleanor Roosevelt</span>
+                </div>
+                
                 <div class="stats">
                     <div class="stat">
                         <i class="fas fa-question-circle"></i>
-                        <span id="total-questions">200</span>
+                        <span id="total-questions">100</span>
                         <label>Questions</label>
                     </div>
                     <div class="stat">
@@ -35,6 +43,14 @@
                         <label>Track</label>
                     </div>
                 </div>
+                
+                <!-- Motivational Message -->
+                <div class="motivational-message">
+                    <p>🎯 <strong>Ready to challenge your mind?</strong></p>
+                    <p>💡 Every question is a step toward mastery</p>
+                    <p>🚀 Your AI knowledge journey starts here!</p>
+                </div>
+                
                 <button id="start-quiz" class="btn-primary">
                     <span>Start Quiz</span>
                     <i class="fas fa-arrow-right"></i>
@@ -63,6 +79,11 @@
 
             <div class="question-container">
                 <div class="question-card">
+                    <!-- Motivational Progress Message -->
+                    <div class="progress-motivation">
+                        <p id="motivation-text">You're doing great! Keep going! 💪</p>
+                    </div>
+                    
                     <h2 id="question-text">Loading question...</h2>
                     <div class="options-container">
                         <div class="option" data-option="A">
@@ -103,6 +124,12 @@
                 <div class="results-header">
                     <i class="fas fa-trophy"></i>
                     <h1>Quiz Complete!</h1>
+                </div>
+                
+                <!-- Motivational Result Message -->
+                <div class="result-motivation">
+                    <p id="result-message">Congratulations on completing the quiz! 🎉</p>
+                    <p id="result-encouragement">Your dedication to learning AI is inspiring!</p>
                 </div>
                 
                 <div class="score-card">
