@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Theory Quiz - Master Your Knowledge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>AI Theory Quiz</h1>
+                </div>
+                <p class="subtitle">Test your knowledge of Artificial Intelligence</p>
+                <div class="stats">
+                    <div class="stat">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="total-questions">200</span>
+                        <label>Questions</label>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <span>2.5 Hours</span>
+                        <label>Time Limit</label>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-trophy"></i>
+                        <span>Score</span>
+                        <label>Track</label>
+                    </div>
+                </div>
+                <button id="start-quiz" class="btn-primary">
+                    <span>Start Quiz</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions-display">100</span></span>
+                </div>
+                <div class="score-display">
+                    <i class="fas fa-star"></i>
+                    <span id="current-score">0</span>
+                </div>
+                <div class="timer-display">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer-text">02:30:00</span>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-card">
+                    <h2 id="question-text">Loading question...</h2>
+                    <div class="options-container">
+                        <div class="option" data-option="A">
+                            <span class="option-label">A</span>
+                            <span class="option-text" id="option-a">Loading...</span>
+                        </div>
+                        <div class="option" data-option="B">
+                            <span class="option-label">B</span>
+                            <span class="option-text" id="option-b">Loading...</span>
+                        </div>
+                        <div class="option" data-option="C">
+                            <span class="option-label">C</span>
+                            <span class="option-text" id="option-c">Loading...</span>
+                        </div>
+                        <div class="option" data-option="D">
+                            <span class="option-label">D</span>
+                            <span class="option-text" id="option-d">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="previous-btn" class="btn-secondary" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                    Previous
+                </button>
+                <button id="next-btn" class="btn-primary">
+                    Next
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <div class="results-header">
+                    <i class="fas fa-trophy"></i>
+                    <h1>Quiz Complete!</h1>
+                </div>
+                
+                <div class="score-card">
+                    <div class="score-circle">
+                        <svg class="score-svg" viewBox="0 0 120 120">
+                            <circle class="score-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="score-fill" cx="60" cy="60" r="50"></circle>
+                        </svg>
+                        <div class="score-text">
+                            <span id="final-score">0</span>%
+                        </div>
+                    </div>
+                    <div class="score-details">
+                        <div class="score-stat">
+                            <span id="correct-answers">0</span>
+                            <label>Correct</label>
+                        </div>
+                        <div class="score-stat">
+                            <span id="total-answered">0</span>
+                            <label>Answered</label>
+                        </div>
+                        <div class="score-stat">
+                            <span id="accuracy">0</span>%
+                            <label>Accuracy</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="review-quiz" class="btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        Review Answers
+                    </button>
+                    <button id="restart-quiz" class="btn-primary">
+                        <i class="fas fa-redo"></i>
+                        Take Quiz Again
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="screen">
+            <div class="review-header">
+                <h1>Review Your Answers</h1>
+                <button id="back-to-results" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Results
+                </button>
+            </div>
+            <div id="review-container" class="review-container">
+                <!-- Review questions will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading Quiz...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
